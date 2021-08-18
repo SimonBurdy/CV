@@ -1,0 +1,14 @@
+/* FONT */
+h3 , h4 {
+    font-family: OvercameBold;
+
+}
+h3:hover , h4:hover{
+  color: #00b388 !important;
+  
+
+}
+
+p {
+    font-family: CroissantOne-Regular;
+}
