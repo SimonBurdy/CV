@@ -169,14 +169,14 @@
                                   <!-- EXPERIENCE  -->
             <div class="row experience">
                 <h3 class="text-center" style="margin-bottom: 30px">Experience</h3>
-                <timeline></timeline>
+                <experiences></experiences>
             </div> 
             <hr style="height:2px">
 
                                     <!-- Formation  -->
             <div class="rox formation">
               <h3 class="text-center" style="margin-bottom: 30px">Formation</h3>
-              <timeline-formation></timeline-formation>
+              <formations></formations>
             </div>
         </div>
          
@@ -185,13 +185,13 @@
 </template>
 <script>
 
-import Timeline from './Timeline.vue';
-import TimelineFormation  from './TimelineFormation.vue'
+import Experiences from  './experienceBlock/Experiences';
+import Formations  from './formationBlock/Formations.vue'
 export default({
     name: "Curiculum",
     component: {
-        Timeline,
-        TimelineFormation,
+        Experiences,
+        Formations,
     },
     data(){
         return {

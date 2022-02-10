@@ -1,36 +1,30 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div>
-         <h4 class="text-center" >Projects</h4>
-      </div>
-      <div class="card">
-          <h3 class="title">Projet RI</h3>
-          <div class="bar">
-              <div class="emptybar">
-              </div>
-              <div class="filledbar">
+    <div class="card">
+        <h3 class="title">{{project.title}} chez {{project.client.name}}</h3>
+        <div class="bar">
+            <div class="emptybar">
+            </div>
+            <div class="filledbar">
 
-              </div>
-          </div>
-          <div class="row content">
-              <div class="row thumbnail align-center">
-                <img  class="img-thumbnail" src="http://res.cloudinary.com/do5ht5y0y/image/upload/v1501322753/post-img-2_zpse1ce0jta_sktijn.jpg" alt="">
-              </div>
-              <div class="row info">
-                  <p>Rogatus ad ultimum admissusque in consistorium ambage nulla praegressa inconsiderate et leviter
-                  proficiscere inquit ut praeceptum est, Caesar sciens quod si cessaveris, et tuas et palatii tui
-                  </p>
-              </div>
-          </div>
-          <!-- <div class="circle">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <circle class="stroke" cx="60" cy="60" r="50"/>
-              </svg>
-          </div> -->
-          
-      </div>
-      <div class="card">
+            </div>
+        </div>
+        <div class="row content">
+            <div class="row thumbnail align-center">
+            <img  class="img-thumbnail" src="http://res.cloudinary.com/do5ht5y0y/image/upload/v1501322753/post-img-2_zpse1ce0jta_sktijn.jpg" alt="">
+            </div>
+            <div class="row info">
+                <p>{{project.description}} 
+                </p>
+            </div>
+        </div>
+        <!-- <div class="circle">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle class="stroke" cx="60" cy="60" r="50"/>
+            </svg>
+        </div> -->
+        
+    </div>
+    <!-- <div class="card">
           <h3 class="title">Projet Application</h3>
           <div class="bar">
               <div class="emptybar">
@@ -50,11 +44,7 @@
                 </p>
               </div>
           </div>
-          <!-- <div class="circle">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <circle class="stroke" cx="60" cy="60" r="50"/>
-              </svg>
-          </div> -->
+         
       </div>
       <div class="card">
           <h3 class="title">Projet Api</h3>
@@ -76,11 +66,7 @@
                 </p>
               </div>
           </div>
-          <!-- <div class="circle">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
-              <circle class="stroke" cx="60" cy="60" r="50"/>
-              </svg>
-          </div> -->
+        
       </div>
       <div class="card">
           <h3 class="title">Projet Platform</h3>
@@ -103,31 +89,32 @@
             </div>
          
           </div>
-          <!-- <div class="circle">
+           <div class="circle">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
               <circle class="stroke" cx="60" cy="60" r="50"/>
               </svg>
           </div> -->
-      </div>
-    </div>
-  </div>
 </template>
 <script>
 
 
 export default ({
-    name:"Projects",
-    data(){
+    name:"Project",
+    props:["projectRow"],
+    async beforeMount() {
+        this.project =  this.projectRow; 
+    },
+    data() {
         return {
-
+            project:{},
         }
-    }
+    },
 })
 </script>
 
 <style scoped>
 
-@import "../../css/app.css";
+@import "../../../css/app.css";
 .container {
   height: 100%;
   width: 100%;

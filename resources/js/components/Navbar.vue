@@ -1,31 +1,31 @@
 
 
 <template>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="col nav-item">
+            <div class="morphing  col"  data-text="Burdy Simon" style="margin-left: 18% ;  "  href="#"> Burdy Simon</div>
+            <!-- <div class="morphing  col"  data-text="Burdy Simon" style="margin-left: 18%"  href="#"> <p  style=" font-family: Overcame;">Burdy Simon</p> </div> -->
+        </div>
+        <div class="col nav-item text-center">
+            <div class="transformed" style="width:50px " data-text="CV">CV</div>
+        </div>
+        <div class="col nav-item text-center">
+            <div class="transformed" style="width:150px" data-text="Projets">Projets</div>
+        </div>
+        <div class="col nav-item text-center">
+          <div class="transformed" style="width:120px" data-text="Contact">Contact</div>
+        </div>
+        <div class="col nav-item text-center">
+          <div class="transformed" style="width:100px" data-text="Agenda">Agenda</div>
+        </div>
+      <form class="col d-flex">
+        <input class="form-control ml-2" type="search" placeholder="Chercher" aria-label="Search">
+        <button class="btn btn-outline-info" type="submit">Chercher</button>
+      </form>
 
-<nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-      <div class="col nav-item">
-          <div class="morphing  col"  data-text="Burdy Simon" style="margin-left: 18% ;  "  href="#"> Burdy Simon</div>
-          <!-- <div class="morphing  col"  data-text="Burdy Simon" style="margin-left: 18%"  href="#"> <p  style=" font-family: Overcame;">Burdy Simon</p> </div> -->
-      </div>
-      <div class="col nav-item text-center">
-          <div class="transformed" style="width:50px " data-text="CV">CV</div>
-      </div>
-      <div class="col nav-item text-center">
-          <div class="transformed" style="width:150px" data-text="Projets">Projets</div>
-      </div>
-      <div class="col nav-item text-center">
-        <div class="transformed" style="width:120px" data-text="Contact">Contact</div>
-      </div>
-      <div class="col nav-item text-center">
-        <div class="transformed" style="width:100px" data-text="Agenda">Agenda</div>
-      </div>
-    <form class="col d-flex">
-      <input class="form-control me-2" type="search" placeholder="Chercher" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Chercher</button>
-    </form>
-  </div>
-</nav>
+    </div>
+  </nav>
 </template>
 <script>
 
