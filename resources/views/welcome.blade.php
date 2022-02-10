@@ -25,15 +25,17 @@
         </style>
     </head>
     <body class="antialiased">
-        <div id="App">
+        <div id="vueapp">
             <navbar></navbar> 
             <curiculum></curiculum> 
-            <hr style="height:5px">    
+            {{-- <hr style="height:5px">     --}}
             <projects></projects>     
-            <hr style="height:5px">  
-            <agenda></agenda> 
-            <hr style="height:5px">  
+            {{-- <hr style="height:5px">   --}}
+            {{--<agenda></agenda> 
+             <hr style="height:5px">   --}}
             <contact></contact>
+            {{-- <hr style="height:5px">   --}}
+            <clients></clients>
             <custom-footer></custom-footer>
            
 

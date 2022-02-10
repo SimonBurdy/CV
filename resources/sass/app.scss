@@ -1,0 +1,28 @@
+//// Fonts
+//@import url('https://fonts.googleapis.com/css?family=Nunito');
+//
+//// Variables
+//@import 'variables';
+//
+//// Bootstrap
+//@import '~bootstrap/scss/bootstrap';
+
+.badge-opened {
+    background: #f68a36;
+}
+.badge-answered {
+    background: #1e69fd;
+    color: #fff;
+}
+.badge-closed, .badge-priority-1 {
+    background: #02ba31;
+    color: #fff;
+}
+.badge-closed, .badge-priority-0 {
+    background: #ba0802;
+    color: #fff;
+}
+
+//.ticket-messages img {
+//    max-width: 100% !important;
+//}
