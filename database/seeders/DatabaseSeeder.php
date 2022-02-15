@@ -13,6 +13,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // \Artisan::call('import:database');//calling the command to import data from .sql file to database table
     }
 }
