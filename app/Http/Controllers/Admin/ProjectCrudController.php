@@ -6,6 +6,7 @@ use App\Http\Requests\ProjectRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 use App\Models\Project;
+use App\Models\Supply;
 /**
  * Class ProjectCrudController
  * @package App\Http\Controllers\Admin
@@ -32,7 +33,7 @@ class ProjectCrudController extends CrudController
         CRUD::setEntityNameStrings('projet', 'projets');
 
           //on load le projet car necessaire dans les crud
-          $this->project = ($projectId = \Route::current()->parameter('id')) ? Project::findOrFail($projectId) : null;
+          $this->project =($projectId = \Route::current()->parameter('id')) ? Project::whereId($projectId)->with('client.addresses')->first() : null;
     }
 
     public function fetchClient()
@@ -171,27 +172,6 @@ class ProjectCrudController extends CrudController
                     'options' => ['lang' => 'fr'],
                     'tab' => 'Général'
                 ],
-                 // DEVIS
-                [   // Custom Field
-                    'name' => 'quotes_files',
-                    'type' => 'quotes',
-                    'project' => $this->project,
-                    'title' => 'Devis du Projet',
-                    'role' => 'quote',
-                    'tab' => 'Devis'
-
-                ],
-
-                // Factures
-                [   // Custom Field
-                    'name' => 'invoices_files',
-                    'type' => 'invoices',
-                    'project' => $this->project,
-                    'title' => 'Facture du Projet',
-                    'role' => 'invoice',
-                    'tab' => 'Factures'
-
-                ],
             ],
         );
 
@@ -211,5 +191,39 @@ class ProjectCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+        $this->crud->addFields([
+            // DEVIS
+            [   // Custom Field
+                'name' => 'quotes_files',
+                'type' => 'quotes',
+                'project' => $this->project,
+                'title' => 'Devis du Projet',
+                'role' => 'quote',
+                'tab' => 'Devis'
+
+            ],
+
+            // Factures
+            [   // Custom Field
+                'name' => 'invoices_files',
+                'type' => 'invoices',
+                'project' => $this->project,
+                'title' => 'Facture du Projet',
+                'role' => 'invoice',
+                'tab' => 'Factures'
+
+            ],
+              // Achat
+            [   // Custom Field
+                'name' => 'supplies_files',
+                'type' => 'supplies',
+                'title' => 'Achat du Projet',
+                'supplies_statuses' => Supply::getAllStatus(),
+                'supplies_tva_rates' => Supply::getTva(),
+                'project' => $this->project,
+                'tab' => 'Achat'
+
+            ],
+        ]);
     }
 }

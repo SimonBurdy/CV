@@ -107,19 +107,7 @@ class ClientCrudController extends CrudController
                 'type' => 'summernote',
                 'tab' => 'Général'
             ],
-            [
-                'name'  => 'client_addresses',
-                'label' => 'Adresse(s)',
-                'type'  => 'address',
-                'tab' => 'Adresse(s)',
-                //Attribute
-                'title' => 'Mon_titre',
-                'client' => $this->client->append('clientAddresses')->toArray(),
-               
-              
-    
-            ],
-    
+           
         ]);
 
        
@@ -141,5 +129,19 @@ class ClientCrudController extends CrudController
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();
+
+        $this->crud->addField([
+            'name'  => 'client_addresses',
+            'label' => 'Adresse(s)',
+            'type'  => 'address',
+            'tab' => 'Adresse(s)',
+            //Attribute
+            'title' => 'Mon_titre',
+            'client' => $this->client->append('clientAddresses')->toArray(),
+           
+          
+
+        ]);
+
     }
 }
