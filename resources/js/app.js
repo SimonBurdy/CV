@@ -5,8 +5,10 @@ import store from "./store";
 import _ from "lodash";
 window._ = _ ;
 
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
 
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
@@ -14,6 +16,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+
+
+
 
 
 Vue.mixin({
@@ -39,20 +44,32 @@ Vue.mixin({
     }
 })
 
+//--------------------------------
+// CKEditor
+//--------------------------------
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+Vue.use( CKEditor );
+
+
 
 
 //--------------------------------
 // Axios et http service
 //--------------------------------
 import http from './services/http'
-Vue.prototype.$http = http
+Vue.prototype.$http = http;
+
+import VModal from 'vue-js-modal'
+Vue.use(VModal);
 
 
-
+import Autocomplete from 'v-autocomplete';
+//You need a specific loader for CSS files like https://github.com/webpack/css-loader
+import 'v-autocomplete/dist/v-autocomplete.css'
 
 
 import Agenda from "./components/Agenda";
-import Contact from "./components/contact";
+import Contact from "./components/Contact";
 
 import Clients from "./components/clientBlock/Clients";
 import Client from "./components/clientBlock/Client";
@@ -73,17 +90,22 @@ import Formations from "./components/formationBlock/Formations";
 import AddAddress from "./components/addressBlock/AddAddress";
 import Addresses from "./components/addressBlock/Addresses";
 
-import Quotes from "./components/billingBlock/Quotes";
-import CurrentQuote from "./components/billingBlock/CurrentQuote";
-import AddQuoteRow from "./components/billingBlock/AddQuoteRow";
-import ServiceRow from "./components/billingBlock/ServiceRow";
-import CurrentAddress from "./components/billingBlock/CurrentAddress";
-import AddressTemplate from "./components/billingBlock/AddressTemplate";
+import Quotes from "./components/billingBlock/quote/Quotes";
+import CurrentQuote from "./components/billingBlock/quote/CurrentQuote";
+import AddQuoteRow from "./components/billingBlock/quote/AddQuoteRow";
+import ServiceRow from "./components/billingBlock/quote/ServiceRow";
+import CurrentAddress from "./components/billingBlock/quote/CurrentAddress";
+import AddressTemplate from "./components/billingBlock/quote/AddressTemplate";
+import ItemTemplate from "./components/billingBlock/quote/ItemTemplate";
+import Supplies from "./components/billingBlock/supply/Supplies";
+import CurrentSupply from "./components/billingBlock/supply/CurrentSupply";
+import Config from  "./plugins/config";
 
 import Comments from  "./components/Comments";
 
 const components = {
     'agenda': Agenda,
+    'v-autocomplete': Autocomplete,
     'contact': Contact,
     'curiculum': Curiculum,
     'customFooter': CustomFooter,
@@ -104,11 +126,16 @@ const components = {
     'service-row' : ServiceRow,
     'current-address' : CurrentAddress,
     'comments' : Comments,
-    'address-template':AddressTemplate
+    'address-template':AddressTemplate,
+    'item-template':ItemTemplate,
+    'supplies' : Supplies,
+    'current-supply' : CurrentSupply
 
     
     
 };
+
+Vue.use(Config)
 
 Object.keys(components).forEach(selector => {
     Vue.component(selector, components[selector]);
