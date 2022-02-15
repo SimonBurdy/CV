@@ -17,6 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('web')->group( function () { 
+Route::get('/experiences' , [App\Http\Controllers\Admin\Api\ExperienceController::class , 'index']);
+Route::get('/formations' , [App\Http\Controllers\Admin\Api\FormationController::class , 'index']);
+Route::get('/projects' , [App\Http\Controllers\Admin\Api\ProjectController::class , 'index']);
+Route::get('/clients' , [App\Http\Controllers\Admin\Api\ClientController::class , 'index']);
+});
+
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('welcome');

@@ -21,13 +21,11 @@ Route::group([
     Route::get('fetch/client','ClientCrudController@fetchClient');
     Route::crud('experience', 'ExperienceCrudController');
     Route::crud('formation', 'FormationCrudController');
-
+    Route::crud('invoice', 'InvoiceCrudController');
+    Route::crud('service', 'ServiceCrudController');
+    
     Route::prefix('api')->group(function () {
-        Route::get('/experiences' , 'Api\ExperienceController@index');
-        Route::get('/formations' , 'Api\FormationController@index');
-        Route::get('/projects' , 'Api\ProjectController@index');
-        Route::get('/clients' , 'Api\ClientController@index');
-
+      
        
         Route::post('/addresses','Api\AddressController@store');
         Route::put('/addresses/{address_id}','Api\AddressController@update');
@@ -62,7 +60,8 @@ Route::group([
         Route::get('quote-row/generate-product-description' , 'Api\QuoteController@generateProductDescription');
         Route::get('quote-row/generate-printing-technique-description' , 'Api\QuoteController@generatePrintingTechniqueDescription');
         Route::get('quote-row/generate-address-description' , 'Api\QuoteController@generateAddressDescription');
-
+    
+        
         // INVOICE
         Route::get('invoices/{invoice_id}/download', 'Api\InvoiceController@download')->name('invoice.download.download');
         Route::get('invoices/config', 'Api\InvoiceController@getConfig');
@@ -76,7 +75,21 @@ Route::group([
         Route::get("invoices/editInvoice/{invoice_id}" , 'Api\InvoiceController@show');
         Route::get('invoices/{id}/printPdf' , 'Api\InvoiceController@printPdf')->name('invoice.printPdf');
         Route::delete('invoices/invoice-row/{invoice_row_id}/delete' , 'Api\InvoiceRowController@destroy');
+
+
+        //Service 
+        Route::get('services', 'Api\ServiceController@index');
+         //Supply
+         Route::get('supplies' ,'Api\SupplyController@index');
+         Route::post('supplies', 'Api\SupplyController@store');
+         Route::post('supplies/files', 'Api\SupplyController@uploadFile');
+         Route::put('supplies/files/{id}' , 'Api\SupplyController@updateFile');
+         Route::put('supplies/{id}', 'Api\SupplyController@update');
+         Route::delete('supplies/{id}' , 'Api\SupplyController@destroy');
+         Route::get('supplies/files/{file_id}/download' , 'Api\FileController@download');
+         Route::delete('supplies/files/{id}/delete' , 'Api\FileController@destroy');
+ 
     });
     
-    Route::crud('service', 'ServiceCrudController');
+    
 }); // this should be the absolute last line of this file
