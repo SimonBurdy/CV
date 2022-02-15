@@ -20,7 +20,10 @@ class Project extends Model
     {
         parent::boot();
         static::saving(function($project) {
-            $project->project_number = $project->getProjectNumber();
+            if(!$project->id){
+                $project->project_number = $project->getProjectNumber();
+            }
+            
         });
     }
     
@@ -57,7 +60,7 @@ class Project extends Model
     {   
         $lastProject= Project::orderBy('created_at')->first();
         if($lastProject){
-            return (int)$lastProject->project_number +1;
+            return (int)$lastProject->project_number + 1;
         }
         return 1;
     }

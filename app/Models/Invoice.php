@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
 class Invoice extends Model
-{
+{   
+
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     use Commentable, Billable;
 
@@ -20,7 +22,6 @@ class Invoice extends Model
         'status',
         'creation_date',
         'validity_date',
-        'agefiph_total',
         'notes',
         'discount_euro',
         'discount_unit',
@@ -32,14 +33,13 @@ class Invoice extends Model
       // masque de facturation ex : 2022xxx
       protected $mask;
 
-      protected $append = ['is_allowed'];
   
   
       public function __construct(array $attributes = [])
       {
           parent::__construct($attributes);
   
-          $this->mask = Config::get('settings.billing_year',date('Y'));
+          $this->mask = 2022;
       }
   
   
@@ -55,27 +55,7 @@ class Invoice extends Model
                   }
               }
   
-              // todo je comprend pas trop ça ? ça risque d envoyer 1  mail a chaque fois qu'on save
-              // dans le doute je commente
-  //            $revision = $invoice->revisionHistory()->where('key' , 'status')->where('old_value'  ,'unpaid invoice' )->where('new_value' , 'paid')->first();
-  //
-  //            if($revision){
-  //
-  //                $client = $invoice->project->client;
-  //                $project = $invoice->project;
-  //                $file = null;
-  //                $userResponsible = $revision->userResponsible()->email;
-  //
-  //
-  //                $data = [
-  //                    "subject" => $client->name." - Projet ".$project->project_number." - Facture n° ".$invoice->number,
-  //                    "body" => $client->name." - Projet ".$project->project_number." - Facture n° ".$invoice->number,
-  //                    "file"=> $file
-  //                ];
-  //
-  //                Mail::to($userResponsible)->send(new BillingInserted($data["subject"] , $data["body"] , $data['file']));
-  //
-  //            }
+ 
   
   
           });
@@ -227,19 +207,19 @@ class Invoice extends Model
        *
        */
   
-      public function getIsAllowedAttribute()
-      {
-          $revison = $this->revisionHistory()->orderby('created_at', 'desc')->where('key' , 'status')->where('new_value' , '!=' , 'draft')->first();
+    //   public function getIsAllowedAttribute()
+    //   {
+    //       $revison = $this->revisionHistory()->orderby('created_at', 'desc')->where('key' , 'status')->where('new_value' , '!=' , 'draft')->first();
   
   
-          if($revison && \Auth::user()){
-              $lastToValidate =   $revison->userResponsible();
-              return $revison->userResponsible()->id !== \Auth::user()->id;
+    //       if($revison && \Auth::user()){
+    //           $lastToValidate =   $revison->userResponsible();
+    //           return $revison->userResponsible()->id !== \Auth::user()->id;
   
-          }
+    //       }
   
-          return false;
-      }
+    //       return false;
+    //   }
   
   
   
@@ -291,11 +271,6 @@ class Invoice extends Model
          }
       }
   
-  
-      public function setAgefiphTotalAttribute()
-      {
-          $this->attributes['agefiph_total'] = $this->computeAgefiph();
-      }
   
   
   
