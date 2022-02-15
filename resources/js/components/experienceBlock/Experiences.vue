@@ -14,7 +14,7 @@
 </template>
 <script>
 
-
+import axios from "axios";
 export default({
     name:"Experiences",
     async beforeMount() {
@@ -30,7 +30,8 @@ export default({
          * Permet de charger toutes les expériences
          */
         load(){
-            return this.$http.get("experiences");
+            axios.defaults.baseURL = "/";
+            return this.$http.get('/experiences');
         },
 
      

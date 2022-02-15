@@ -53,11 +53,11 @@
                             </div>
                             <div class="col-md-4 offset-md-4 input-group-sm d-inline-flex align-self-start w-auto">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" >TVA</span>
+                                    <span class="input-group-text  w-auto" >TVA</span>
                                 </div>
                                 <select 
                                     v-model="serviceRow.vat_rate"
-                                    class="form-control w-auto h-auto"
+                                    class="form-control w-auto"
                                     >
                                         <option
                                             :value="index"
@@ -67,12 +67,153 @@
                                         {{value }}
                                         </option>
                                 </select>
-                                <div class="input-group-append">
-                                    <label class="input-group-text">%</label>
-                                </div>
                                 <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.vat_rate']" class="help-block text-error">
                                     {{ rowFormErrors['rows.'+row_index+'.vat_rate'][0] }}
                                 </p>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-4  align-items-center  w-auto">  
+                            <div class="col-md-4">
+                                <div class="row input-group-sm d-inline-flex align-self-start w-auto ml-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >Quantité</span>
+                                    </div>
+                                    <input  v-model="serviceRow.quantity" type="number" class="form-control w-auto" min="0" placeholder="2">
+                                </div>    
+                                <div class="row">
+                                    <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.quantity']" class="row help-block text-error">
+                                                    {{ rowFormErrors['rows.'+row_index+'.quantity'][0] }}
+                                    </p>
+                                 </div>
+                            </div>
+
+                            <div class="col-md-4 input-group-sm d-inline-flex align-self-start w-auto">
+                               
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text w-auto" >Unité</span>
+                                    </div>
+                                    <select 
+                                        v-model="serviceRow.unity"
+                                        class="form-control w-auto"
+                                        >
+                                            <option
+                                                :value="index"
+                                                :key="'addRow-'+index"
+                                                v-for="(value,index) in units"
+                                            >{{value }}
+                                            </option>
+                                    </select>
+                              
+                                <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.unity']" class="row help-block text-error">
+                                    {{ rowFormErrors['rows.'+row_index+'.unity'][0] }}
+                                </p>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="row input-group-sm  d-inline-flex align-self-start w-auto ml-1">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" >Prix unitaire</span>
+                                    </div>
+                                    <input  v-model="serviceRow.unit_price" type="number" min="0" class="form-control w-auto h-auto" placeholder="300">  
+                                </div > 
+                                    <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.unit_price']" class="help-block text-error">
+                                        {{ rowFormErrors['rows.'+row_index+'.unit_price'][0] }}
+                                    </p>  
+                             
+                            </div>
+                    
+                        </div>
+
+
+                        <div class="row mt-3  align-items-center w-auto">  
+
+                            <div class="col input-group-sm d-inline-flex align-self-start w-auto">
+                                <div class="input-group-prepend ">
+                                    <span class="input-group-text" >Geste commerciale</span>
+                                </div>
+                                <input v-model="serviceRow.discount_value" type="number" min="0" class="form-control w-auto h-auto"  placeholder="150">
+                            </div>
+                            <div class="col input-group-sm d-inline-flex align-self-start w-auto">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" >Devise</span>
+                                </div>
+                                <select  v-model="serviceRow.discount_unit" class="form-control w-auto h-auto" >
+                                    <option value="euros">€</option>
+                                    <option value="pc">%</option>
+                                </select>
+                            </div>
+                            <div class="col input-group-sm d-inline-flex align-self-start w-auto">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" >Valeur réelle</span>
+                                </div>
+                                <input  v-model="serviceRow.discount_euro" type="number" class="form-control w-auto h-auto " min="0" placeholder="200" readonly>
+                                <div class="input-group-append">
+                                        <span class="input-group-text">€</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-8 input-group-sm d-inline-flex align-self-start w-auto ">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <span >Service</span>
+                                    </div>
+                                    <div class="col-md-8"> 
+                                        <v-autocomplete
+                                            hide-no-data
+                                            hide-selected
+                                            style="z-index: 9999; max-width: 50%;"
+                                            :items="items"
+                                            :min-len="2"
+                                            item-text="desc"
+                                            v-model="serviceRow.article"
+                                            :get-label="getLabel"
+                                            :component-item="template"
+                                            @update-items="updateItems"
+                                            :wait="500"
+                                            :autoSelectOneItem="false"
+                                            placeholder="Service"
+                                            >
+
+                                        </v-autocomplete>
+                                        <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.article_id']" class="row help-block text-error">
+                                            {{ rowFormErrors['rows.'+row_index+'.article_id'][0] }}
+                                        </p>
+                                    </div>
+
+                                </div>
+                               
+                            </div>
+                            <div class="col-md-4 offset-md-4 input-group-sm d-inline-flex align-self-start w-auto">
+                               <div class="row">
+                                    <div class="col-md-6">
+                                        <span>TVA</span>
+                                    </div>
+                                    <select 
+                                        v-model="serviceRow.vat_rate"
+                                        class="col-md-6"
+                                        >
+                                            <option
+                                                :value="index"
+                                                :key="'addRow-'+index"
+                                                v-for="(value,index) in vat_rates"
+                                            >
+                                            {{value }}
+                                            </option>
+                                    </select>
+                               </div>
+                               <div class="row">
+                                    <p v-if="rowFormErrors  && rowFormErrors['rows.'+row_index+'.vat_rate']" class="help-block text-error">
+                                        {{ rowFormErrors['rows.'+row_index+'.vat_rate'][0] }}
+                                    </p>    
+                               </div>
+
                             </div>
                         </div>
 
@@ -161,8 +302,7 @@
                             </div>
 
                         </div>
-                    </div>
-
+                    </div> -->
                      <div class="row mt-2 mb-2" >
                         <div class="col-md-3 offset-md-9" @click="generateDesc">
                             <button type="button" class="btn">
@@ -175,41 +315,6 @@
 
 
         </div>
-
-
-
-        <div class="mt-3" :id="'accordionExample'+serviceRow.v_id" v-if="serviceRow.article && serviceRow.article.weezea_ref == 'SRV1'">   
-            <div class="card">
-                <button class="btn btn-block text-left" type="button" data-toggle="collapse" :data-target="'#delivery-address'+serviceRow.v_id" aria-expanded="true" aria-controls="delivery-address">
-                    <div class="card-header" id="delivery-address-title">
-                        <h2 class="mb-0">
-                                <div class="row ml-2">
-                                    <h5 class="font-weight-bold">Adresse de Livraison</h5>
-                                </div>
-                        </h2>
-                    </div>
-                </button>
-
-                <div :id="'delivery-address'+serviceRow.v_id" class="collapse show" aria-labelledby="delivery-address" :data-parent="'#delivery-address'+serviceRow.v_id">
-                    <div class="card-body">
-                        <div class="row w-auto mt-4" >
-                                <div class=" mt-2 col-12 bg-warning border rounded-pill border-warning text-center">
-                                <span class="text-white">Vous pouvez ajouter un adresse de livraison</span>
-                            </div>
-                                <current-address
-                                    class="mt-2"
-                                    :addresses="$store.state.quote.client.addresses"
-                                    status="delivery_address"
-                                    @addedOrUpdated="addedOrUpdated"
-                                    > 
-
-                                </current-address> 
-                        </div>
-                    </div>
-                </div>
-            </div>  
-        </div>
-
 
 
         <div class="card">
@@ -340,39 +445,9 @@ export default ({
          */
         generateDesc(){   
             if(this.serviceRow.article && (this.serviceRow.description == '' || this.serviceRow.description ==  undefined)){
-            this.serviceRow.description =  this.serviceRow.article.weezea_ref + ' '+this.serviceRow.article.desc +'\n'
+            this.serviceRow.description =  this.serviceRow.article.ref + ' '+this.serviceRow.article.desc +'\n'
                         
-                if(this.serviceRow.article.weezea_ref == 'SRV1'){
-
-
-                    var url = ""
-
-                    if(this.isQuote){
-                        url = "quote-row/generate-address-description"
-                    }else if(this.isInvoice){
-                        url = "invoice-row/generate-address-description"
-                    }
-
-                   this.$http
-                        .get("quote-row/generate-address-description" , { 
-                            params : {
-                                name : this.mainAddress.name ,
-                                addressName : this.mainAddress.address,
-                                status : "delivery"
-                            } 
-                        })
-                        .then(response => {
-                            this.serviceRow.description += response;
-                        }).catch((err) => {
-                            if (err.status == 500) {
-                            new Noty({
-                                    type:"error",
-                                    text: "Erreur lors de la génération de l'address",
-                                }).show();
-                            }
-                        });
-                   
-                }
+              
             } 
 
         },
@@ -438,11 +513,3 @@ export default ({
 
 </style>
 
-<style lang="scss">
-.quote-product-row {
-    .v-autocomplete-input {
-        width: 100% !important;
-        border: 0;
-    }
-}
-</style>

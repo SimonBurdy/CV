@@ -29,8 +29,8 @@
         <hr style="height:2px">                                   
         <div class="row info">
                                  <!-- Competence  -->
-            <div class="row competence">
-                <div class="row titre text-center">
+            <div class="col-12 competence">
+               <div class="row titre text-center">
                     <h3 >Competences</h3>
                 </div>
                 <div class="row">
@@ -167,15 +167,15 @@
             </div>
             <hr style="height:2px">
                                   <!-- EXPERIENCE  -->
-            <div class="row experience">
-                <h3 class="text-center" style="margin-bottom: 30px">Experience</h3>
+            <div class="col-12 experience text-center">
+                <h3 class=" allsides-3" style="margin: 30px 0px 25px 0px">Experience</h3>
                 <experiences></experiences>
             </div> 
             <hr style="height:2px">
 
                                     <!-- Formation  -->
-            <div class="rox formation">
-              <h3 class="text-center" style="margin-bottom: 30px">Formation</h3>
+            <div class="col-12 formation text-center">
+              <h3 class=" allsides-3" style="margin: 30px 0px 25px 0px">Formation</h3>
               <formations></formations>
             </div>
         </div>
@@ -206,6 +206,35 @@ export default({
 @font-face { font-family: OvercameBold; src: url('../../../public/font/Overcame/OvercameDemoBold.ttf'); } 
 @font-face { font-family: CroissantOne-Regular ; src: url('../../../public/font/croissant-one/CroissantOne-Regular.ttf'); } 
 
+
+
+
+.allsides-3 {
+  background:
+    linear-gradient(currentColor 0 0) top,
+    linear-gradient(currentColor 0 0) left,
+    linear-gradient(currentColor 0 0) bottom,
+    linear-gradient(currentColor 0 0) right;
+  background-size: var(--d, 0) 3px, 3px var(--d, 0);
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+.allsides-3:hover {
+  --d: 100%;
+}
+
+
+.allsides-3 {
+  display:inline-block;
+  font-size:30px;
+  font-family: OvercameRegular;
+  margin-top:0%;
+  cursor:pointer;
+  padding: 0px 9px 9px 9px ;
+}
+.allsides-3  {
+  color:black;
+}
 .container-fluid {
     width: 80%;
 }

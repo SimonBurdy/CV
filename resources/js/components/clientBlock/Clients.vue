@@ -1,10 +1,13 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="mb-3">
-         <h4 class="text-center" >Déjà {{clients.length}} clients nous font confiance ... </h4>
+  <div class="container-fluid">
+    <div class="col-12">
+      <div class="row mb-3 text-center">
+           <div class="col align-self-center">
+                 <h4 >Déjà {{clients.length}} clients nous font confiance ... </h4>
+            </div>
+        
       </div>
-      <div class="row justify-content-between">
+      <div class="row justify-content-center">
         <client
         v-for="client in clients"
             :key="client.id"
@@ -45,5 +48,7 @@ export default ({
 
 <style scoped>
 
-
+.container-fluid {
+    margin-top:50px;
+}
 </style>

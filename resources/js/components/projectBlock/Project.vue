@@ -131,7 +131,7 @@ export default ({
   background-color: #17141d;
   border-radius: 10px;
   box-shadow: -1rem 0 3rem #000;
-/*   margin-left: -50px; */
+  margin-left: -50px;
   transition: 0.4s ease-out;
   position: relative;
   left: 100px;
@@ -140,7 +140,7 @@ export default ({
 
 .card:not(:first-child) {
     margin-left: -50px;
-}
+} 
 
 .card:hover {
   /* transform: translate(20px,-80px); */
@@ -230,5 +230,6 @@ svg {
 }
 .info {
   margin: 50px 0px 0px 0px ;
+  padding: 0px 5px 0px 5px;
 }
 </style>

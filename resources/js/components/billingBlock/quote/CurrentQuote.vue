@@ -21,7 +21,7 @@
 
                 <a  @click="generatePdf()"  v-if="currentQuote.id" type="button"  class="btn btn-primary"  target="_blank">   <i class="las la-file-pdf"></i> <span class="text-white">  Générer le pdf </span></a>
 
-                <button type="button" v-if="mode == 'edit'  && isInvoice && currentQuote.status == 'draft'" @click="finalizeInvoice(quote_id)" class="btn btn-success btn-outline-warning">
+                <button  v-if="mode == 'edit'  && isInvoice && currentQuote.status == 'draft'" @click="finalizeInvoice(quote_id)" class="btn btn-success btn-outline-warning">
                     <span class="text-dark">
                          Finaliser la facture
                     </span>
@@ -132,15 +132,15 @@
                 </form>
 
                 <div class="row justify-content-end mt-3 mr-3 mb-3">
-                    <div class="dropdown ">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Ajouter une ligne
+                    <div class="col">
+                        <button type="button" @click.prevent="createEmptyServiceRow" class="btn  btn-success">
+                            <span class="text-dark">
+                                Ajouter un service
+                            </span>
+                            
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a  @click.prevent="createEmptyProductRow"   class="dropdown-item" href="#">Produit</a>
-                            <a  @click.prevent="createEmptyServiceRow" class="dropdown-item" href="#">Service</a>
-                        </div>
                     </div>
+
                 </div> 
             </div>
         </div>
@@ -288,7 +288,6 @@ export default ({
                     discount_euro : this.global_discount_euro,
                     discount_unit: this.global_discount_unit,
                     sell_total:this.total_without_tax,
-                    agefiph_total: this.total_agefiph,
                     rows : this.currentQuote.rows,
 
             }).then((resp) => {
@@ -353,7 +352,6 @@ export default ({
                 discount_euro : this.global_discount_euro,
                 discount_unit: this.global_discount_unit,
                 sell_total:this.total_without_tax,
-                agefiph_total: this.total_agefiph,
                 rows : this.currentQuote.rows,
             }).then((resp) => {
          
@@ -441,7 +439,7 @@ export default ({
             if (confirm("Finaliser cette facture ?")){
                 this.update( this.currentQuote.id,"waiting for payment").then((resp) => {
                
-                     this.$emit('isAllowed' , { quote_id :this.currentQuote.id , status: "waiting for payment", is_allowed : false , number: this.currentQuote.number}); 
+                     this.$emit('isAllowed' , { quote_id :this.currentQuote.id , status: "waiting for payment", number: this.currentQuote.number}); 
                 });
                
 

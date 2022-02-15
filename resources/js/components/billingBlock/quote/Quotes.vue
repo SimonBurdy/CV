@@ -16,14 +16,7 @@
         <div v-if="mode == 'list'">
 
             <div class="py-2 d-flex justify-content-end">
-                 <button
-                    v-if="isQuote"
-                    type="button"
-                    @click="generate()"
-                    class="btn btn-primary btn-sm mr-3"
-                ><i class="la la-plus"></i> Générer depuis la propal
-                </button>
-
+              
                 <button
                     type="button"
                     @click="changeMode('creation')"
@@ -142,7 +135,7 @@
                                     type="button"
                                     class="btn btn-sm btn-info"
                                 ><i class="la la-edit"></i>
-                                    <span v-if="isInvoice && quote.status == 'draft' || quote.is_allowed || isQuote">Editer</span>
+                                    <span v-if="isInvoice && quote.status == 'draft' || isQuote">Editer</span>
                                     <span v-else>Voir</span>
                                 </button>
 
@@ -216,7 +209,7 @@
 <script>
 
 import  CurrentQuote from "./CurrentQuote"
-import Comments from "../Comments";
+import Comments from "../../Comments";
 
 export default {
     components: { CurrentQuote , Comments},
@@ -244,6 +237,7 @@ export default {
     },
     props: [ "project_id" , "client"  , "role" , 'title'],
     mounted(){
+        console.log( "this.$store" , this.$store);
         this.$store.state.quote.client = this.client;
         this.nbComments = 0;
     },
@@ -418,22 +412,6 @@ export default {
                 });
         },
 
-        /**
-         * Requete ajax pour générer un devis à partir de la propal
-         */
-        generate(){ 
-            if(this.isQuote){
-                this.$http.get("quotes/"+this.project_id+"/generate").then((resp)=> {
-                this.quotes.push(resp);
-                new Noty({
-                        type: "success",
-                        text: "Devis généré",
-                    }).show();
-
-                })
-            }
-          
-        },
 
 
         /**
@@ -459,7 +437,7 @@ export default {
         isMemberAllowed(event){
             let quote =  this.quotes.find(quote => quote.id === event.quote_id);
             quote.status = event.status ;
-            quote.is_allowed = event.is_allowed;
+
             quote.number = event.number;
            
         },
@@ -491,7 +469,6 @@ export default {
             if(newVal == "creation"){
                 this.$store.state.quote.id = "";
                 this.$store.state.quote.address_id = "" ;
-                this.$store.state.quote.agefiph_total="" ;
                 this.$store.state.quote.created_at="" ;
                 this.$store.state.quote.discount_euro="" ;
                 this.$store.state.quote.discount_unit="";
@@ -543,4 +520,13 @@ export default {
 
 
 
+</style>
+
+<style lang="scss">
+.quote-product-row {
+    .v-autocomplete-input {
+        width: 100% !important;
+        border: 0;
+    }
+}
 </style>

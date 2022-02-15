@@ -1,17 +1,19 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div>
-         <h4 class="text-center" >Projects</h4>
+  <div class="container-fluid">
+    <div class="col-12">
+      <div class="row justify-content-center">
+        <div class="col-3 text-center ">
+            <h4 class=" allsides-3" >Projects</h4>
+        </div>
       </div>
-      <project
-       v-for="project in projects"
-        :key="project.id"
-        :projectRow="project"
-        >
-
-      </project>
-
+      <div class="row justify-content-center">
+        <project
+        v-for="project in projects"
+          :key="project.id"
+          :projectRow="project"
+          >
+        </project>
+      </div>
     </div>
   </div>
 </template>
@@ -44,11 +46,40 @@ export default ({
 <style scoped>
 
 @import "../../../css/app.css";
-.container {
+
+
+
+.allsides-3 {
+  background:
+    linear-gradient(currentColor 0 0) top,
+    linear-gradient(currentColor 0 0) left,
+    linear-gradient(currentColor 0 0) bottom,
+    linear-gradient(currentColor 0 0) right;
+  background-size: var(--d, 0) 3px, 3px var(--d, 0);
+  background-repeat: no-repeat;
+  transition: 0.5s;
+}
+.allsides-3:hover {
+  --d: 100%;
+}
+
+
+.allsides-3 {
+  display:inline-block;
+  font-size:30px;
+  font-family: OvercameRegular;
+  margin-top:0%;
+  cursor:pointer;
+  padding: 0px 9px 9px 9px ;
+}
+.allsides-3  {
+  color:black;
+}
+.container-fluid {
   height: 100%;
   width: 100%;
   display: flex;
-  margin-bottom: 100px;
+  margin-bottom: 200px;
   
 }
 
@@ -63,12 +94,7 @@ export default ({
 /*   margin-left: -50px; */
   transition: 0.4s ease-out;
   position: relative;
-  left: 100px;
   margin-top: 10px;
-}
-
-.card:not(:first-child) {
-    margin-left: -50px;
 }
 
 .card:hover {
@@ -79,7 +105,7 @@ export default ({
 
 .card:hover ~ .card {
   position: relative;
-  left: 100px;
+  /* left: 100px; */
   transition: 0.4s ease-out;
 }
 
