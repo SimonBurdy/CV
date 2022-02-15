@@ -31,8 +31,6 @@
             {{-- <hr style="height:5px">     --}}
             <projects></projects>     
             {{-- <hr style="height:5px">   --}}
-            {{--<agenda></agenda> 
-             <hr style="height:5px">   --}}
             <contact></contact>
             {{-- <hr style="height:5px">   --}}
             <clients></clients>
