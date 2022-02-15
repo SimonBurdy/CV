@@ -10,7 +10,6 @@ const quote = {
         id : '',
         mode: '',
         address_id : '',
-        agefiph_total: '',
         client: {},
         created_at: '',
         unity: '',
