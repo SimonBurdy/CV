@@ -5,6 +5,13 @@ namespace App\Http\Controllers\Admin\Api;
 use App\Models\Quote;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QuoteRequest;
+use App\Models\QuoteRow;
+use App\Models\Project;
+use App\Models\Service;
+use App\Models\Invoice;
+use App\Models\InvoiceRow;
+use PDF;
 
 class QuoteController extends Controller
 {
@@ -79,7 +86,6 @@ class QuoteController extends Controller
         $year = substr($request->creation_date , 0 ,4);
         $newQuote = new Quote(); // Crée un nouveau quote
 
-        $this->authorize('create' , $newQuote); // Vérifie les policies
         $newQuote->fill($request->all());
         $newQuote->sell_total_ttc = $this->computeSellTotalTcc($request->rows);
         $newQuote->number = $year;
@@ -115,7 +121,6 @@ class QuoteController extends Controller
         $year = substr($request->creation_date , 0 ,4);
         // Quote selectionné
         $updateQuote = Quote::findOrFail($id);
-        $this->authorize('update' ,  $updateQuote );
         $updateQuote->fill($request->all());
         $updateQuote->save(); // On enregistre le devis
 
@@ -404,7 +409,6 @@ class QuoteController extends Controller
 
             // Creation du Quote
             $newQuote = new Quote();
-            $this->authorize('create' , $newQuote); // vérification des policies
             $newQuote->project_id = $project->id ;
 
             // on determine la meilleur addresse pour le devis
@@ -419,7 +423,6 @@ class QuoteController extends Controller
             $newQuote->sell_total = $quoteSellTotal + $shippingFees;
             $newQuote->discount_euro = 0;
             $newQuote->status = 'draft' ;  // par défaut on mets en brouillon
-            $newQuote->agefiph_total = $quoteAgefiphTotal;
             $newQuote->save();
 
 
@@ -506,7 +509,6 @@ class QuoteController extends Controller
     {
 
         $quote = Quote::findOrFail($id);
-        $this->authorize('delete' , $quote);
         $quote->rows->each(function($row) {
             $row->delete();
         });
@@ -529,7 +531,7 @@ class QuoteController extends Controller
 
         $quote = Quote::with('rows' , 'project.client' , 'clientAddress')->findOrFail($id);
 
-        $this->authorize('printPdf' , $quote);
+   
 
 
        $pdf = PDF::setOptions([

@@ -14,7 +14,7 @@ class ProjectController extends Controller
     */
    public function index()
    {
-       return Project::with('client')->get();
+       return Project::with('client')->get()->take(5);
    }
 
    /**

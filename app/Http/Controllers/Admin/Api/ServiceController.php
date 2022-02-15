@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Api;
-
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Http\Resources\ServiceResource;
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -13,74 +15,62 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $query = $request->get('q');
+
+        if (!$query) {
+            return [];
+        }
+
+        $services = Service::where('desc','like', "%".$query."%")
+            ->orWhere('ref','like', "%".strtoupper($query)."%")->get();
+
+    
+        return ServiceResource::collection($services);
+        
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * Permet d'afficher le service 
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param [int] $service_id
+     * @return Service
      */
-    public function store(Request $request)
-    {
-        //
+    public function show($service_id){
+
+        return Service::whereId($service_id)->first();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Service $service)
-    {
-        //
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * Ajouter  un nouveau service à la base 
      *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
+     * @param ServiceRequest $request
+     * @return Service
      */
-    public function edit(Service $service)
+    public function store(ServiceRequest $request)
     {
-        //
+
+        $newService = new Service($request->all());
+        $newService->save();
+        return $newService;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Service $service)
-    {
-        //
+
+    public function update(ServiceRequest $request , $id){
+        $oldService = Service::findOrFail($id);
+        $oldService->fill($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Service  $service
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Service $service)
+
+    public function destroy($id)
     {
-        //
+        $oldService = Service::findOrFail($id);
+        $oldService->delete();
     }
+    
 }
